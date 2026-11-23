@@ -563,4 +563,4 @@ function tick(){var d=tgt-Date.now();var el=document.getElementById('cd');if(d<=
 var h=Math.floor(d/3600000),m=Math.floor(d%3600000/60000);el.innerHTML='<div><b>'+h+'</b><span>jam</span></div><div><b>'+m+'</b><span>minit</span></div><div style="align-self:center;font-size:.8rem;text-align:left">sebelum Ujian<br>Mendengar</div>'}
 tick();setInterval(tick,30000);
 try{document.querySelectorAll('.chk input').forEach(function(c,i){c.checked=localStorage.getItem('bi'+i)==='1';c.addEventListener('change',function(){try{localStorage.setItem('bi'+i,c.checked?'1':'0')}catch(e){}})})}catch(e){}
-</script><script>if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(function(){})</script><script src="splash.js"></script></body></html>
+</script><script>if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(function(){})</script><script src="splash.js"></script><script src="ramalan.js"></script></body></html>
