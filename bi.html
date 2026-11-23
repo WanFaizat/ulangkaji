@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ms"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kit BI SPM 24 Nov</title>
+<style>
+:root{--ink:#1d1a3d;--mut:#4a4870;--bg:#f7f8fc;--line:#dfe3ee;--pri:#5f3dc4}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Poppins','Segoe UI',Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;padding-bottom:90px;font-size:16px}
+header{background:linear-gradient(140deg,#2d2377,#5f3dc4 65%,#7a4fd6);color:#fff;padding:22px 18px 18px;position:relative;overflow:hidden}
+header .k{display:inline-block;background:rgba(255,255,255,.2);border-radius:99px;padding:3px 12px;font-size:.65rem;font-weight:800;letter-spacing:1.5px}
+header h1{font-size:1.55rem;margin:8px 0 4px;line-height:1.15}header p{font-size:.88rem;opacity:.92;max-width:80%}
+.cd{display:flex;gap:8px;margin-top:14px}.cd div{background:rgba(255,255,255,.16);border-radius:12px;padding:6px 14px;text-align:center}.cd b{font-size:1.25rem;display:block;line-height:1.2}.cd span{font-size:.68rem}
+header svg{position:absolute;right:8px;top:10px;width:84px;height:84px;opacity:.45}
+main{max-width:760px;margin:0 auto;padding:14px}
+section{display:none}section.on{display:block;animation:r .3s}@keyframes r{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
+.ban{color:#fff;border-radius:18px;padding:16px;margin-bottom:12px;display:flex;gap:14px;align-items:center}
+.ban .ic{font-size:2.2rem;background:rgba(255,255,255,.2);width:58px;height:58px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex:none}
+.ban h2{font-size:1.25rem;line-height:1.2}.ban small{opacity:.95;font-size:.82rem}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 1px 3px rgba(30,30,70,.07)}
+.card h3{font-size:1.02rem;margin-bottom:6px}
+.tip{background:#fff4e6;border:1.5px dashed #f08c00;border-radius:12px;padding:9px 12px;margin:8px 0;font-weight:600;font-size:.92rem}.tip:before{content:'PENTING  ';color:#c2410c;font-size:.7rem;font-weight:800}
+.warn{background:#fff0f0;border-left:5px solid #c92a2a;border-radius:10px;padding:9px 12px;margin:8px 0;font-size:.9rem}
+ul{padding-left:20px}li{margin:3px 0}
+table{width:100%;border-collapse:collapse;font-size:.86rem;margin:6px 0}th{color:#fff;text-align:left;padding:6px 8px}td{border:1px solid var(--line);padding:6px 8px;vertical-align:top}tr:nth-child(even) td{background:#f7f8fc}
+.pill{display:inline-block;border-radius:99px;padding:2px 10px;font-size:.72rem;font-weight:800;color:#fff;margin-right:4px}
+details{border:1.5px solid var(--line);border-radius:14px;margin:8px 0;background:#fff;overflow:hidden}
+summary{cursor:pointer;padding:12px 14px;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:8px;align-items:center}
+summary::-webkit-details-marker{display:none}summary:after{content:'+';font-size:1.3rem;color:var(--pri);font-weight:800}details[open] summary:after{content:'-'}
+details .in{padding:0 14px 12px}
+.ex{background:#f1f3fa;border-radius:10px;padding:9px 12px;font-size:.88rem;margin:6px 0;white-space:pre-line}
+.chk label{display:flex;gap:10px;align-items:flex-start;padding:10px 4px;border-bottom:1px solid var(--line);font-size:.95rem}
+.chk input{width:22px;height:22px;flex:none;margin-top:2px;accent-color:#0b7285}
+.tl{border-left:4px solid #5f3dc4;margin-left:8px;padding-left:14px}.tl div{margin-bottom:12px;position:relative}.tl div:before{content:'';position:absolute;left:-23px;top:6px;width:12px;height:12px;border-radius:50%;background:#5f3dc4}
+.tl b{display:block}
+nav{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);box-shadow:0 -4px 14px rgba(30,30,70,.1);display:flex;z-index:50;padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;border:0;background:none;padding:8px 2px 10px;font:600 .68rem 'Poppins',sans-serif;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer}
+nav .i{font-size:1.4rem;line-height:1}nav button.on{color:var(--pri)}nav button.on .i{transform:scale(1.18)}
+@media(min-width:760px){nav{max-width:560px;left:50%;right:auto;transform:translateX(-50%);border-radius:18px 18px 0 0}}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.chip{border:0;border-radius:99px;padding:9px 16px;font:700 .85rem 'Poppins',sans-serif;background:#fff;border:2px solid var(--c);color:var(--c);cursor:pointer}
+.chip.on{background:var(--c);color:#fff}
+.grp{display:none}.grp.on{display:block}
+.blank{background:#fff3bf;border-bottom:2px solid #f08c00;border-radius:4px;padding:0 4px;font-weight:700;color:#7a4500}
+.tp .ex{font-size:.92rem;line-height:1.75}
+.sub{display:flex;gap:6px;margin-bottom:10px;overflow-x:auto}.sub button{flex:none;border:2px solid var(--pri);background:#fff;color:var(--pri);border-radius:99px;padding:7px 14px;font:700 .8rem 'Poppins',sans-serif}.sub button.on{background:var(--pri);color:#fff}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mt{border:0;border-radius:16px;padding:14px 10px;color:#fff;font:700 .9rem 'Poppins',sans-serif;text-align:left;cursor:pointer;min-height:88px;box-shadow:0 2px 6px rgba(0,0,0,.15)}.mt small{display:block;font-weight:500;opacity:.92;margin-top:4px;font-size:.74rem}.mt .e{font-size:1.5rem;display:block}
+.back{border:0;background:#fff;border:2px solid var(--line);border-radius:99px;padding:7px 14px;font:700 .8rem 'Poppins',sans-serif;margin-bottom:10px;cursor:pointer}
+.pas{background:#f1f3fa;border-left:5px solid var(--pri);border-radius:10px;padding:10px 12px;margin:8px 0;font-size:.92rem;white-space:pre-line}
+.prog{height:8px;background:#e6e9f5;border-radius:99px;overflow:hidden;margin:6px 0 12px}.prog i{display:block;height:100%;background:linear-gradient(90deg,#5f3dc4,#0b7285);transition:width .3s}
+.opt{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:12px;margin:7px 0;font:600 .93rem 'Poppins',sans-serif;color:var(--ink);cursor:pointer}
+.opt.ok{background:#d3f9d8;border-color:#2b8a3e}.opt.no{background:#ffe3e3;border-color:#c92a2a}
+.fb{border-radius:12px;padding:10px 12px;margin:8px 0;font-size:.9rem}.fb.g{background:#ebfbee;border:1.5px solid #2b8a3e}.fb.b{background:#fff5f5;border:1.5px solid #c92a2a}
+.btn{border:0;border-radius:12px;padding:12px 18px;background:var(--pri);color:#fff;font:700 .95rem 'Poppins',sans-serif;cursor:pointer;margin:6px 6px 6px 0}.btn.o{background:#fff;color:var(--pri);border:2px solid var(--pri)}.btn.g{background:#0b7285}.btn[disabled]{opacity:.5}
+.big{font-size:2.4rem;font-weight:800;color:var(--pri);text-align:center}
+select.sl,input.tx{width:100%;padding:11px;border:2px solid var(--line);border-radius:10px;font:600 .95rem 'Poppins',sans-serif;margin:4px 0;background:#fff}
+select.ok,input.ok{border-color:#2b8a3e;background:#d3f9d8}select.no,input.no{border-color:#c92a2a;background:#ffe3e3}
+textarea.wr{width:100%;min-height:240px;border:2px solid var(--line);border-radius:12px;padding:12px;font:500 .95rem/1.6 'Poppins',sans-serif;resize:vertical}
+.wc{display:flex;justify-content:space-between;font-weight:700;font-size:.85rem;margin:4px 0}.wc .bad{color:#c92a2a}.wc .good{color:#2b8a3e}
+.rs li{list-style:none;margin:5px 0;padding-left:0}.rs{padding-left:0}
+.ti{border:2px solid #f08c00;background:#fff9db;border-radius:6px;padding:2px 6px;font:700 .85rem 'Poppins',sans-serif;color:#7a4500;min-width:70px;max-width:100%}
+.say{font-size:2.2rem;border:0;background:var(--pri);color:#fff;border-radius:50%;width:70px;height:70px;cursor:pointer;display:block;margin:10px auto}
+.badge{display:inline-block;background:#fff3bf;border-radius:99px;padding:3px 10px;font-size:.75rem;font-weight:800}
+</style><link rel="manifest" href="bi.webmanifest"><meta name="theme-color" content="#5f3dc4"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="BI A+"><link rel="apple-touch-icon" href="bi-180.png"><link rel="icon" href="bi-192.png"></head><body>
+<header>
+<svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="12" fill="#ffd43b"/><g><ellipse cx="100" cy="100" rx="88" ry="30" fill="none" stroke="#fff" stroke-width="5"/><circle r="9" fill="#fff"><animateMotion dur="3s" repeatCount="indefinite" path="M12,100 a88,30 0 1,0 176,0 a88,30 0 1,0 -176,0"/></circle></g><g transform="rotate(60 100 100)"><ellipse cx="100" cy="100" rx="88" ry="30" fill="none" stroke="#fff" stroke-width="5"/><circle r="9" fill="#fff"><animateMotion dur="4s" repeatCount="indefinite" path="M12,100 a88,30 0 1,0 176,0 a88,30 0 1,0 -176,0"/></circle></g></svg>
+<span class="k">SPM BAHASA INGGERIS 1119</span><h1>Kit BI untuk 24 November</h1><p>Semua kertas: Mendengar, Kertas 1 (Reading) dan Kertas 2 (Writing).</p>
+<div class="cd" id="cd"></div></header>
+<main>
+
+<section id="esok" class="on">
+<div class="ban" style="background:#5f3dc4"><div class="ic">📅</div><div><h2>Jadual dan persiapan esok</h2><small>Selasa, 24 November 2026</small></div></div>
+<div class="card"><h3>Waktu setiap kertas</h3>
+<div class="tl">
+<div><b>8:30 pagi, hadir di dewan</b>Mendengar 9:00 hingga 9:40 (40 minit, 30 soalan)</div>
+<div><b>10:30 pagi, hadir semula</b>Kertas 1 Reading, 11:00 hingga 12:30 (90 minit, 40 markah)</div>
+<div><b>12:30 hingga 2:30 petang</b>Makan, solat dan rehat. Jangan ulang kaji banyak.</div>
+<div><b>2:30 petang</b>Kertas 2 Writing, 2:30 hingga 4:00 (90 minit, 60 markah)</div></div></div>
+<div class="card chk"><h3>Senarai semak (tandakan)</h3>
+<label><input type="checkbox">Kad pengenalan dan slip peperiksaan</label>
+<label><input type="checkbox">Pen hitam atau biru, 2 batang lebih</label>
+<label><input type="checkbox">Pensel 2B, pemadam dan pembaris</label>
+<label><input type="checkbox">Botol air dan makanan ringan untuk antara kertas</label>
+<label><input type="checkbox">Pakaian siap dan tahu jalan ke dewan</label>
+<label><input type="checkbox">Tidur sebelum 11 malam dan alarm dipasang</label></div>
+<div class="card"><h3>Hari ini, buat ini sahaja</h3><ul>
+<li><b>Penulisan dahulu</b> kerana 60 markah. Tulis satu e-mel pendek dan satu tugasan 125 hingga 150 patah perkataan dengan masa sebenar.</li>
+<li>Hafal <b>templat</b> e-mel, e-mel formal, cerita dan karangan pendapat (tab Templat).</li>
+<li>Buat satu set Reading dengan masa. Soalan susah, tanda dan lompat.</li>
+<li>Dengar audio bahasa Inggeris 20 hingga 30 minit.</li>
+<li>Lepas pukul 8 malam, <b>berhenti</b>. Baca tab ini sekali lagi sahaja.</li></ul>
+<div class="tip">Jangan tinggalkan satu soalan pun kosong. Jawapan tekaan lebih baik daripada kosong.</div></div>
+</section>
+
+<section id="dengar">
+<div class="ban" style="background:#0b7285"><div class="ic">🎧</div><div><h2>Ujian Mendengar</h2><small>9:00 hingga 9:40 pagi, 30 soalan, 30 markah</small></div></div>
+<div class="card"><h3>Empat bahagian</h3>
+<table><tr style="background:#0b7285"><th>Bahagian</th><th>Apa yang ada</th><th>Markah</th></tr>
+<tr><td>Part 1</td><td>7 perbualan pendek atau pengumuman, pilih A, B atau C</td><td>7</td></tr>
+<tr><td>Part 2</td><td>Perbualan lebih panjang, 8 soalan</td><td>8</td></tr>
+<tr><td>Part 3</td><td>5 penutur, padankan dengan pernyataan (ada pilihan lebih yang tak digunakan)</td><td>5</td></tr>
+<tr><td>Part 4</td><td>Lengkapkan nota, tulis 10 perkataan yang hilang</td><td>10</td></tr></table></div>
+<div class="card"><h3>Tip untuk semua bahagian</h3><ul>
+<li><b>Baca soalan dahulu</b> sebelum audio bermula. Bulatkan kata tanya (who, when, where, why, how many).</li>
+<li>Dengar <b>maksud</b>, bukan perkataan yang sama. Jawapan yang sama bunyi dengan audio selalunya perangkap.</li>
+<li>Awas <b>penukar</b>: but, however, actually, instead. Selepas itu maklumat betul biasanya keluar.</li>
+<li>Soalan guna perkataan lain (sinonim). Contoh: cheap bermaksud inexpensive.</li>
+<li><b>Jangan tersangkut.</b> Kalau terlepas satu, tinggalkan dan terus dengar soalan seterusnya.</li>
+<li>Semak nombor, harga dan masa. Dengar sama ada 13 atau 30, 15 atau 50.</li></ul></div>
+<details><summary>Part 1 dan 2: pilihan A, B, C</summary><div class="in"><ul>
+<li>Tandakan dua perkataan penting dalam setiap pilihan sebelum dengar.</li>
+<li>Pembatalan: kalau penutur kata "I was going to... but", jawapan bukan yang pertama.</li>
+<li>Perhatikan perasaan penutur (annoyed, worried, pleased) daripada nada suara.</li>
+<li>Pilih satu jawapan pada setiap soalan. Dua bulatan kehilangan markah.</li></ul></div></details>
+<details><summary>Part 3: padanan 5 penutur</summary><div class="in"><ul>
+<li>Baca semua pernyataan dahulu. Ada lebih daripada 5, jadi ada yang tidak digunakan.</li>
+<li>Satu penutur, satu jawapan. Coret yang sudah digunakan.</li>
+<li>Penutur jarang guna perkataan pernyataan. Dengar idea utama.</li></ul></div></details>
+<details><summary>Part 4: lengkapkan nota (10 markah)</summary><div class="in"><ul>
+<li>Lihat jenis jawapan yang diperlukan: nama, nombor, hari, tempat, kata nama.</li>
+<li>Tulis perkataan yang anda dengar, <b>ejaan mesti betul</b>. Hari dan bulan perlu huruf besar.</li>
+<li>Jawapan biasanya satu atau dua perkataan sahaja. Jangan tulis ayat panjang.</li>
+<li>Jawapan datang ikut urutan nota.</li></ul></div></details>
+</section>
+
+<section id="baca">
+<div class="ban" style="background:#1864ab"><div class="ic">📖</div><div><h2>Kertas 1: Reading dan Use of English</h2><small>11:00 hingga 12:30, 90 minit, 40 markah</small></div></div>
+<div class="card"><h3>Lima bahagian dan cadangan masa</h3>
+<table><tr style="background:#1864ab"><th>Bahagian</th><th>Apa</th><th>Markah</th><th>Masa</th></tr>
+<tr><td>Part 1</td><td>Teks pendek, 8 soalan aneka pilihan</td><td>8</td><td>10 min</td></tr>
+<tr><td>Part 2</td><td>Tatabahasa dan perbendaharaan kata</td><td>10</td><td>15 min</td></tr>
+<tr><td>Part 3</td><td>Teks panjang, 8 soalan</td><td>8</td><td>20 min</td></tr>
+<tr><td>Part 4</td><td>Pilih 6 ayat daripada 8 untuk isi ruang kosong</td><td>6</td><td>15 min</td></tr>
+<tr><td>Part 5</td><td>Padan 4 perenggan dan tulis satu ayat</td><td>8</td><td>20 min</td></tr>
+<tr><td>Semak</td><td>Semak semula, isi yang kosong</td><td></td><td>10 min</td></tr></table>
+<p style="font-size:.8rem;color:#4a4870">Jumlah markah daripada sumber latihan. Masa ialah cadangan saya, bukan rasmi. Ikut arahan kertas sebenar jika berbeza.</p></div>
+<div class="card"><h3>Tip umum</h3><ul>
+<li><b>Garis</b> perkataan penting semasa baca.</li>
+<li><b>Fikir jawapan sendiri</b> dahulu, baru lihat pilihan.</li>
+<li><b>Bulatkan perkataan negatif</b>: not, never, always, only. Satu perkataan boleh terbalikkan jawapan.</li>
+<li>Soalan teks panjang ikut <b>urutan teks</b>. Guna kata dalam soalan untuk cari tempat jawapan.</li>
+<li>Pilihan yang kelihatan betul tetapi guna kata terlalu kuat (all, always) biasanya salah.</li></ul></div>
+<details><summary>Part 2: tatabahasa dan perbendaharaan</summary><div class="in"><ul>
+<li>Semak <b>tense</b> dahulu: ada petunjuk masa (yesterday, since, tomorrow)?</li>
+<li>Semak <b>subjek dan kata kerja</b>: he goes, they go.</li>
+<li>Semak jenis perkataan: kata nama, kata kerja, kata sifat atau kata keterangan.</li>
+<li>Kata hubung: because (sebab), although (walaupun), however (tetapi), so (jadi).</li>
+<li>Kalau tak pasti, buang dua pilihan yang jelas salah dan pilih.</li></ul></div></details>
+<details><summary>Part 4: pilih ayat untuk ruang kosong</summary><div class="in"><ul>
+<li>Baca ayat sebelum dan selepas ruang kosong. Ayat yang dipilih mesti nyambung idea.</li>
+<li>Cari <b>petunjuk</b>: pronoun (this, they, it), kata hubung (however, also), dan tarikh atau nombor.</li>
+<li>Ada 2 ayat lebih yang tidak digunakan. Jangan paksa semua digunakan.</li></ul></div></details>
+<details><summary>Part 5: padan perenggan dan tulis ayat</summary><div class="in"><ul>
+<li>Baca kenyataan dahulu, kemudian cari perenggan yang sepadan. Gunakan idea utama perenggan.</li>
+<li>Untuk ayat yang diminta, <b>ambil maklumat daripada teks</b> dan tulis dalam ayat penuh dengan kata kerja.</li>
+<li>Jawapan pendek dan tepat. Ejaan betul.</li></ul></div></details>
+</section>
+
+<section id="tiptulis">
+<div class="ban" style="background:#b84508"><div class="ic">✍️</div><div><h2>Kertas 2: Writing</h2><small>2:30 hingga 4:00, 90 minit, 60 markah</small></div></div>
+<div class="card"><h3>Tiga bahagian dan cadangan masa</h3>
+<table><tr style="background:#b84508"><th>Bahagian</th><th>Tugasan</th><th>Markah</th><th>Masa</th></tr>
+<tr><td>Part 1</td><td>Nota atau e-mel pendek, bawah 80 patah perkataan</td><td>20</td><td>15 min</td></tr>
+<tr><td>Part 2</td><td>Tugasan berpandu, 125 hingga 150 patah perkataan</td><td>20</td><td>30 min</td></tr>
+<tr><td>Part 3</td><td>Pilih satu daripada tiga tajuk, 200 hingga 250 patah perkataan</td><td>20</td><td>35 min</td></tr>
+<tr><td>Semak</td><td>Baca semula dan betulkan</td><td></td><td>10 min</td></tr></table>
+<div class="tip">Tulis Part 1 dan 2 dahulu kerana lebih pasti markahnya, kemudian Part 3 dengan masa yang tinggal. Jangan lebih jauh daripada had perkataan.</div></div>
+
+<details open><summary>Part 1: e-mel atau nota pendek</summary><div class="in">
+<ul><li><b>Baca soalan:</b> kepada siapa (kawan atau guru), apa tujuan, apa maklumat wajib (masa, tempat, apa dibawa).</li>
+<li>Guna <b>semua</b> maklumat yang diberi. Tiap maklumat dalam ayat penuh.</li>
+<li>Nada: kawan guna santai, guru atau pengetua guna sopan.</li></ul>
+<div class="ex">Dear Aina,
+I am writing to invite you to our class picnic this Saturday. It will be at Taman Rekreasi at 9 a.m. Please bring a drink and a mat. We will play games and have lunch together. Let me know if you can come.
+Best wishes,
+Faris</div>
+<p style="font-size:.85rem">Susunan: salam, tujuan, butiran, permintaan atau penutup, nama. Kira perkataan, kekalkan bawah 80.</p></div></details>
+
+<details><summary>Part 2: tugasan berpandu 125 hingga 150 patah perkataan</summary><div class="in">
+<ul><li>Soalan beri nota atau poin. <b>Gunakan setiap poin</b> dan huraikan dalam ayat penuh dengan kata kerja.</li>
+<li>Kenal pasti format: e-mel, surat, artikel, laporan atau ucapan, dan ikut format itu.</li>
+<li>Satu poin, satu perenggan pendek (2 hingga 3 ayat).</li></ul>
+<div class="ex">Kerangka e-mel formal:
+Dear Sir/Madam, (atau Dear Mr Lim,)
+Para 1: I am writing to ... (tujuan)
+Para 2: Point 1 + 2 ayat butiran
+Para 3: Point 2 + 2 ayat butiran
+Para 4: Point 3 / permintaan. I would appreciate it if ...
+Yours faithfully / sincerely, Nama</div>
+<div class="ex">Kerangka laporan:
+Title: Report on ...
+Introduction: The purpose of this report is to ...
+Findings: First, ... Second, ...
+Conclusion/Recommendation: I recommend that ...</div></div></details>
+
+<details><summary>Part 3: karangan 200 hingga 250 patah perkataan</summary><div class="in">
+<ul><li><b>Pilih tajuk yang anda ada idea</b> dalam 2 minit. Jangan tukar selepas mula.</li>
+<li>Rancang 3 minit: 4 hingga 5 perenggan, satu idea setiap perenggan.</li>
+<li>Setiap perenggan ada <b>ayat utama</b> dan 2 hingga 3 ayat sokongan.</li>
+<li>Guna kata sifat dan kata keterangan, ayat panjang dan pendek bergilir, dan sedikit dialog.</li></ul>
+<div class="ex">Kerangka cerita:
+1. Pengenalan: siapa, di mana, bila
+2. Masalah bermula
+3. Kemuncak (apa berlaku)
+4. Penyelesaian
+5. Pengajaran atau perasaan di akhir</div>
+<div class="ex">Kerangka karangan pendapat atau artikel:
+1. Pengenalan: tajuk dan pendirian
+2. Hujah 1 + contoh
+3. Hujah 2 + contoh
+4. Hujah balas atau pandangan lain
+5. Kesimpulan: ulang pendirian dengan perkataan lain</div>
+<div class="ex">Kerangka ulasan:
+1. Apa yang diulas (filem, buku, tempat)
+2. Isi atau ringkasan
+3. Kelebihan
+4. Kekurangan
+5. Pendapat dan cadangan (recommend or not)</div></div></details>
+
+<div class="card"><h3>Semakan 5 saat setiap ayat</h3><ul>
+<li>Tense konsisten? (cerita masa lalu guna past tense)</li>
+<li>Subjek dan kata kerja sepadan? (He walks, they walk)</li>
+<li>Ada a, an atau the yang perlu? Kata nama jamak ada -s?</li>
+<li>Ejaan: their atau there, to atau too, a lot (dua perkataan)</li>
+<li>Huruf besar, noktah dan koma di tempat betul</li></ul>
+<div class="warn">Jangan hafal karangan penuh dan paksa masuk. Pemeriksa nampak jika tak sepadan dengan tajuk.</div></div>
+</section>
+
+<section id="templat">
+<div class="ban" style="background:#c2255c"><div class="ic">🧩</div><div><h2>Templat isi tempat kosong</h2><small>Hafal rangka, isi bahagian berwarna kuning</small></div></div>
+<div class="warn" style="border-color:#c2255c;background:#fff0f6"><b>Cara guna:</b> hafal rangka ayat, kemudian isi tempat kosong (warna kuning) ikut soalan. Templat bantu susunan dan format, tetapi isi mesti padan dengan soalan. Ejaan dan tatabahasa masih dimarkah.</div>
+<div class="chips"><button class="chip on" data-g="p1" style="--c:#0b7285">Part 1</button><button class="chip" data-g="p2" style="--c:#b84508">Part 2</button><button class="chip" data-g="p3" style="--c:#7c2a93">Part 3</button><button class="chip" data-g="rd" style="--c:#1864ab">Reading</button><button class="chip" data-g="ls" style="--c:#0b7285">Dengar</button><button class="chip" data-g="ay" style="--c:#c2255c">Ayat selamat</button><button class="chip" data-g="fr" style="--c:#4a4870">Frasa</button></div>
+<div class="grp on" id="g_p1"><div class="card tp" style="border-top:5px solid #0b7285"><h3>Jemput atau beritahu kawan</h3><div class="ex">Dear {nama kawan},
+How are you? I am writing to {invite you to / tell you about} {acara}. It will be held on {hari dan tarikh} at {tempat} at {masa}. Please bring {barang}. We will {aktiviti 1} and {aktiviti 2}. Let me know if you can come.
+Best wishes,
+{nama anda}</div><p style='font-size:.82rem;color:#4a4870'>Kira perkataan, kekalkan bawah 80. Guna semua maklumat dalam soalan.</p></div><div class="card tp" style="border-top:5px solid #0b7285"><h3>Minta maaf atau tukar rancangan</h3><div class="ex">Dear {nama},
+I am sorry that I cannot {buat apa} on {hari} because {sebab}. Can we {rancangan baharu} on {hari lain} instead? I hope you understand.
+Yours,
+{nama anda}</div></div><div class="card tp" style="border-top:5px solid #0b7285"><h3>Ucap terima kasih</h3><div class="ex">Dear {nama},
+Thank you for {apa dibuat}. I really enjoyed {bahagian yang suka} and it made me feel {perasaan}. I hope we can {rancangan akan datang} soon.
+Best wishes,
+{nama anda}</div></div><div class="card tp" style="border-top:5px solid #0b7285"><h3>Nota kepada guru atau ibu bapa</h3><div class="ex">Dear {Mr/Mrs/Puan} {nama},
+I am writing to inform you that {berita}. It will take place on {tarikh} at {tempat}. I would be grateful if you could {permintaan}. Thank you for your time.
+Yours sincerely,
+{nama anda}</div></div><div class="card tp" style="border-top:5px solid #0b7285"><h3>Nota ringkas untuk keluarga</h3><div class="ex">Mum,
+I have gone to {tempat} with {siapa}. I will be back at {masa}. There is {makanan} in the fridge. Please {permintaan}.
+Love,
+{nama anda}</div></div></div><div class="grp" id="g_p2"><div class="card tp" style="border-top:5px solid #b84508"><h3>E-mel atau surat formal (permohonan, permintaan)</h3><div class="ex">Dear Sir/Madam,   (jika tahu nama: Dear Mr {nama},)
+I am writing to {request / apply for / ask about} {topik}.
+Firstly, {poin 1}. {butiran 1}.
+Secondly, {poin 2}. {butiran 2}.
+In addition, {poin 3}. {butiran 3}.
+I would appreciate it if you could {tindakan} by {tarikh}. I look forward to hearing from you.
+Yours faithfully,   (jika Mr {nama}: Yours sincerely,)
+{nama anda}</div><p style='font-size:.82rem;color:#4a4870'>Setiap poin dalam soalan mesti dibalas dalam ayat penuh dengan kata kerja.</p></div><div class="card tp" style="border-top:5px solid #b84508"><h3>Surat aduan</h3><div class="ex">Dear Sir/Madam,
+I am writing to complain about {masalah} at {tempat}.
+On {tarikh}, {apa berlaku}. This caused {kesan}.
+I have also noticed that {masalah kedua}.
+I hope you can {penyelesaian} as soon as possible. Thank you.
+Yours faithfully,
+{nama anda}</div></div><div class="card tp" style="border-top:5px solid #b84508"><h3>Artikel</h3><div class="ex">Title: {tajuk menarik}
+Have you ever {soalan}? Today, many {orang} {keadaan}.
+One important point is {poin 1}. For example, {contoh}.
+Another point is {poin 2}. This is because {sebab}.
+Finally, {poin 3}.
+In conclusion, {kesimpulan}. Let us all {ajakan}.</div></div><div class="card tp" style="border-top:5px solid #b84508"><h3>Laporan</h3><div class="ex">Title: Report on {topik}
+Introduction
+The purpose of this report is to {tujuan}. The information was collected from {sumber}.
+Findings
+First, {dapatan 1}. Second, {dapatan 2}. Third, {dapatan 3}.
+Recommendations
+I recommend that {cadangan 1}. Besides, {cadangan 2}.
+Conclusion
+In short, {ringkasan}.
+Prepared by: {nama anda}</div></div><div class="card tp" style="border-top:5px solid #b84508"><h3>Ucapan</h3><div class="ex">Good morning {principal, teachers and fellow students}.
+Today I would like to talk about {topik}.
+First, {poin 1}. Second, {poin 2}. Third, {poin 3}.
+To sum up, {kesimpulan}. Let us {ajakan}.
+Thank you for listening.</div></div><div class="card tp" style="border-top:5px solid #b84508"><h3>Ulasan (filem, buku, tempat)</h3><div class="ex">Title: Review of {nama}
+{Nama} is a {jenis} about {ringkasan 1 ayat}.
+What I like most is {kelebihan 1} and {kelebihan 2}.
+However, {kekurangan}.
+Overall, I {recommend / do not recommend} it because {sebab}.
+Rating: {skor} out of 5</div></div></div><div class="grp" id="g_p3"><div class="card tp" style="border-top:5px solid #7c2a93"><h3>Cerita (narrative)</h3><div class="ex">Para 1: It was a {adjektif} {pagi/petang} in {tempat}. {Nama}, a {umur/sifat} {pelajar/budak}, was {sedang buat apa}. Everything seemed {normal}.
+Para 2: Suddenly, {kejadian}. {Nama} felt {perasaan}. "{kata-kata}," said {nama}.
+Para 3: {Nama} decided to {tindakan}. However, {masalah timbul}.
+Para 4: After {masa}, {penyelesaian}. Everyone {reaksi}.
+Para 5: In the end, {hasil}. From that day on, {nama} learnt that {pengajaran}.</div><p style='font-size:.82rem;color:#4a4870'>Cerita ikut tajuk. Letak tajuk dalam ayat pertama atau terakhir supaya padan.</p></div><div class="card tp" style="border-top:5px solid #7c2a93"><h3>Karangan pendapat (opinion)</h3><div class="ex">Para 1: In today's world, {topik} has become {penting/popular}. Some people believe that {pandangan A}, while others think {pandangan B}. In my opinion, {pendapat saya}.
+Para 2: Firstly, {sebab 1}. For example, {contoh}. As a result, {kesan}.
+Para 3: Secondly, {sebab 2}. This is because {penjelasan}. Therefore, {akibat}.
+Para 4: Some people may argue that {pandangan lawan}. However, {balas}.
+Para 5: In conclusion, {ulang pendapat}. Therefore, we should {tindakan}.</div></div><div class="card tp" style="border-top:5px solid #7c2a93"><h3>Kebaikan dan keburukan</h3><div class="ex">Para 1: {Topik} is {sesuatu} that many people {buat/guna}. It has both advantages and disadvantages.
+Para 2: One advantage is {kebaikan 1}. For example, {contoh}.
+Para 3: Another advantage is {kebaikan 2}. This helps {siapa} to {faedah}.
+Para 4: On the other hand, {keburukan}. This can cause {kesan}.
+Para 5: In conclusion, the advantages {outweigh / do not outweigh} the disadvantages. We should {cadangan}.</div></div><div class="card tp" style="border-top:5px solid #7c2a93"><h3>Karangan huraian (orang atau tempat)</h3><div class="ex">Para 1: The person I admire most is {nama}. {Dia} is my {hubungan}.
+Para 2: {Dia} looks {rupa}. {Dia} has {ciri fizikal}.
+Para 3: {Dia} is {sifat 1} and {sifat 2}. For example, {contoh perbuatan}.
+Para 4: One thing I remember is {kenangan}. It taught me {pengajaran}.
+Para 5: In short, {dia} is a person who {ringkasan}. I hope to be like {dia} one day.</div></div></div><div class="grp" id="g_rd"><div class="card tp" style="border-top:5px solid #1864ab"><h3>Langkah tetap untuk Part 1 (teks pendek)</h3><div class="ex">1. Baca teks: ini apa? (notis, mesej, iklan, e-mel)
+2. Siapa tulis kepada siapa? Untuk apa?
+3. Baca soalan, fikir jawapan sendiri.
+4. Cari ayat dalam teks yang sama makna dengan pilihan.
+5. Buang pilihan yang: ada perkataan terlalu kuat (all, always, never), tiada dalam teks, atau bertentangan.</div></div><div class="card tp" style="border-top:5px solid #1864ab"><h3>Petunjuk tense untuk Part 2</h3><div class="ex">Past: yesterday, last week, ago, in 2020 → {verb + ed / bentuk lampau}
+Present: every day, usually, always, often → {verb / verb + s}
+Future: tomorrow, next week, soon → {will + verb}
+Perfect: already, yet, since, for → {has/have + bentuk lampau}
+Sekarang: now, at the moment → {is/are + verb-ing}</div></div><div class="card tp" style="border-top:5px solid #1864ab"><h3>Kata depan masa dan tempat</h3><div class="ex">Masa: at + jam (at 8 a.m.), on + hari (on Monday), in + bulan atau tahun (in May)
+Tempat: at + titik (at the bus stop), in + ruang (in the room), on + permukaan (on the table)</div></div><div class="card tp" style="border-top:5px solid #1864ab"><h3>Subjek dan kata kerja</h3><div class="ex">Satu orang (he, she, it): {goes, eats, has, is}
+Banyak atau I, you, we, they: {go, eat, have, are}
+Selepas does, did, can, will: guna kata kerja asas (He does not {go}, She can {swim})</div></div><div class="card tp" style="border-top:5px solid #1864ab"><h3>Part 4 (pilih ayat untuk ruang kosong)</h3><div class="ex">Cari petunjuk dalam ayat sebelum dan selepas:
+- Ayat selepas mula dengan This, They, It → ayat sebelum perlu sebut benda itu.
+- Ayat selepas mula dengan However → ayat sebelum beri idea bertentangan.
+- Ada nombor, tarikh atau nama → ayat pilihan perlu ada yang sepadan.
+2 ayat tidak digunakan, jangan paksa.</div></div><div class="card tp" style="border-top:5px solid #1864ab"><h3>Part 5 (tulis ayat daripada teks)</h3><div class="ex">Paragraph {nombor} explains that {idea utama perenggan}.
+According to the text, {maklumat daripada teks dalam ayat penuh}.
+Salin perkataan penting daripada teks, tetapi tulis dalam ayat lengkap dengan kata kerja.</div></div></div><div class="grp" id="g_ls"><div class="card tp" style="border-top:5px solid #0b7285"><h3>Part 4: apa nak tulis</h3><div class="ex">Nama → huruf besar, eja betul (Aisyah, Johor)
+Nombor atau harga → angka (RM25, 3 pm, 0123)
+Hari dan bulan → huruf besar (Monday, October)
+Tempat → nama tempat sahaja (library, bus station)
+Kata nama biasa → 1 atau 2 perkataan yang disebut</div></div><div class="card tp" style="border-top:5px solid #0b7285"><h3>Part 1 dan 2: dengar apa</h3><div class="ex">Who → siapa bercakap, hubungan
+Where → tempat disebut atau bunyi latar
+Why → alasan selepas because, so, as
+When → masa terakhir yang disebut (selepas "but" atau "actually")
+How many → nombor akhir selepas pembetulan
+How does he feel → nada: worried, excited, angry</div></div><div class="card tp" style="border-top:5px solid #0b7285"><h3>Part 3: padan penutur</h3><div class="ex">Untuk setiap penutur tulis satu perkataan: perasaan atau pendapat (cth: angry, bored, thankful).
+Padankan dengan pernyataan yang makna sama.
+Coret pernyataan yang sudah digunakan. Ada pilihan lebih.</div></div><div class="card tp" style="border-top:5px solid #0b7285"><h3>Penukar yang selalu tukar jawapan</h3><div class="ex">but, however, actually, in fact, instead, on second thought, I was going to ... but
+Selepas perkataan ini, maklumat betul biasanya keluar.</div></div></div><div class="grp" id="g_ay"><div class="card tp" style="border-top:5px solid #c2255c"><h3>Ayat selamat boleh pakai untuk apa-apa tajuk</h3><div class="ex">This is important because {sebab}.
+For example, {contoh}.
+As a result, {kesan}.
+This is why {kesimpulan}.
+In my opinion, {pendapat}.
+On the other hand, {pandangan lain}.
+It can be seen that {perkara}.
+There are several reasons for this. First, {sebab 1}. Second, {sebab 2}.
+We should all {tindakan}.
+In conclusion, {ringkasan}.</div><p style='font-size:.82rem;color:#4a4870'>Tukar bahagian dalam kurungan supaya padan tajuk.</p></div><div class="card tp" style="border-top:5px solid #c2255c"><h3>Pembuka karangan</h3><div class="ex">Have you ever {soalan}?
+In today's world, {topik} plays an important role.
+It was a {adjektif} day when {kejadian}.
+"{kata-kata}," said {nama}.</div></div><div class="card tp" style="border-top:5px solid #c2255c"><h3>Penutup karangan</h3><div class="ex">In conclusion, {ulang pendapat}.
+To sum up, {ringkasan}. Let us {ajakan}.
+From that day on, I learnt that {pengajaran}.</div></div></div><div class="grp" id="g_fr"><div class="card"><h3>Perkataan penghubung</h3>
+<table><tr style="background:#7c2a93"><th>Tujuan</th><th>Gunakan</th></tr>
+<tr><td>Tambah idea</td><td>in addition, moreover, besides, also</td></tr>
+<tr><td>Beri contoh</td><td>for example, for instance, such as</td></tr>
+<tr><td>Bertentangan</td><td>however, but, on the other hand, although</td></tr>
+<tr><td>Sebab dan akibat</td><td>because, since, therefore, as a result, so</td></tr>
+<tr><td>Urutan</td><td>firstly, next, after that, finally, in the end</td></tr>
+<tr><td>Kesimpulan</td><td>in conclusion, to sum up, all in all</td></tr></table></div>
+<div class="card"><h3>Pembuka dan penutup surat</h3><ul>
+<li>Santai: I hope you are well. / I am writing to tell you about ... / Write back soon.</li>
+<li>Formal: I am writing to inform you ... / I would like to request ... / I look forward to hearing from you.</li>
+<li>Penutup: Yours faithfully (Dear Sir/Madam), Yours sincerely (Dear Mr Lim), Best wishes (kawan).</li></ul></div>
+<div class="card"><h3>Pembuka karangan yang menarik</h3><ul>
+<li>Soalan: Have you ever wondered what it feels like to ...?</li>
+<li>Suasana: The rain fell heavily that night, and the road was dark.</li>
+<li>Pernyataan kuat: Technology has changed the way we live.</li></ul></div>
+<div class="card"><h3>Kesilapan tatabahasa lazim</h3>
+<table><tr style="background:#7c2a93"><th>Salah</th><th>Betul</th></tr>
+<tr><td>He go to school.</td><td>He goes to school.</td></tr>
+<tr><td>I am agree.</td><td>I agree.</td></tr>
+<tr><td>Many informations</td><td>A lot of information</td></tr>
+<tr><td>I very like it.</td><td>I like it very much.</td></tr>
+<tr><td>Yesterday I go.</td><td>Yesterday I went.</td></tr>
+<tr><td>She is more taller.</td><td>She is taller.</td></tr></table></div>
+</div>
+</section>
+
+<section id="latih">
+<div class="ban" style="background:#5f3dc4"><div class="ic">🎯</div><div><h2>Latihan interaktif</h2><small>Tekan, jawab, terus nampak betul atau salah</small></div></div>
+<div id="lstage"></div>
+</section>
+<section id="tulisan">
+<div class="ban" style="background:#b84508"><div class="ic">✍️</div><div><h2>Latihan menulis</h2><small>Tulis, kira perkataan, semak senarai</small></div></div>
+<div class="warn" style="background:#fff9db;border-color:#f08c00">Semakan ini hanya senarai semak (perkataan, isi, penghubung, kesilapan biasa). Bukan markah sebenar. Model jawapan adalah buatan saya, bukan rasmi.</div>
+<div id="wstage"></div>
+</section>
+</main>
+<nav id="nav"></nav>
+<script>
+var G=[
+["She ___ to school every day.",["go","goes","going"],1,"She ialah orang ketiga tunggal, jadi kata kerja tambah -es: goes."],
+["Yesterday, we ___ a movie.",["watch","watched","watching"],1,"Yesterday bermaksud masa lalu, guna watched."],
+["I have lived here ___ 2015.",["for","since","in"],1,"Since digunakan dengan titik masa (2015). For digunakan dengan tempoh."],
+["He is ___ than his brother.",["tall","taller","more tall"],1,"Kata sifat pendek tambah -er: taller."],
+["There ___ a lot of books on the shelf.",["is","are","be"],1,"Books ialah jamak, jadi guna are."],
+["She can ___ very well.",["swims","swim","swimming"],1,"Selepas can guna kata kerja asas: swim."],
+["If it rains tomorrow, we ___ stay at home.",["will","would","did"],0,"If + present, ayat utama guna will."],
+["She gave me ___ advice.",["a","some","many"],1,"Advice tidak boleh dikira. Guna some, bukan a atau many."],
+["I am interested ___ science.",["on","in","at"],1,"Interested in: berminat dalam."],
+["We arrived ___ the airport at 6 a.m.",["at","on","in"],0,"Arrive at + tempat tertentu."],
+["He was tired, ___ he went to bed early.",["but","so","because"],1,"So menunjukkan akibat: dia letih, jadi dia tidur awal."],
+["She was late ___ the bus broke down.",["because","so","although"],0,"Because menunjukkan sebab."],
+["___ it was raining, they played football.",["Because","Although","So"],1,"Although bermaksud walaupun, menunjukkan pertentangan."],
+["My brother ___ his homework now.",["do","does","is doing"],2,"Now bermaksud sedang berlaku: is doing."],
+["They ___ already finished their lunch.",["has","have","is"],1,"They guna have: have finished."],
+["What time ___ the film start?",["do","does","is"],1,"The film ialah tunggal, guna does."],
+["Neither of the boys ___ here.",["are","is","were"],1,"Neither of the ... diikuti kata kerja tunggal: is."],
+["This is the ___ book I have ever read.",["good","better","best"],2,"Ever menunjukkan yang paling: the best."],
+["He asked me where ___.",["I lived","did I live","do I live"],0,"Dalam ayat tanya tidak langsung, susunan biasa: where I lived."],
+["The window ___ by the wind last night.",["broke","was broken","is broken"],1,"Pasif masa lalu: was broken."],
+["I look forward ___ you.",["to see","to seeing","seeing"],1,"Look forward to + kata kerja -ing."],
+["You ___ wear a helmet when you ride a motorcycle.",["must","might","would"],0,"Must untuk kewajipan."],
+["She is ___ honest girl.",["a","an","the"],1,"Honest bermula dengan bunyi vokal (h senyap), guna an."],
+["He lives ___ his uncle in Kota Bharu.",["with","by","to"],0,"Live with: tinggal bersama."],
+["We need ___ water.",["a few","a little","many"],1,"Water tidak boleh dikira: a little."],
+["Ali, together with his friends, ___ going to the park.",["are","is","were"],1,"Subjek ialah Ali (tunggal): is."],
+["I enjoy ___ football.",["play","to play","playing"],2,"Enjoy + kata kerja -ing."],
+["The students ___ their books to class every day.",["bring","brings","bringing"],0,"Students ialah jamak: bring."],
+["She asked me ___ I wanted tea or coffee.",["whether","that","because"],0,"Whether digunakan untuk pilihan: tea atau coffee."],
+["It is ___ expensive for me to buy.",["too","very","enough"],0,"Too expensive for me bermaksud terlalu mahal sehingga tidak boleh beli."],
+["By the time we arrived, the film ___.",["started","had started","starts"],1,"Perbuatan lebih awal daripada perbuatan lampau lain: had started."],
+["The weather was freezing, so I wore a ___ coat.",["thick","thin","light"],0,"Freezing bermaksud sangat sejuk, jadi thick (tebal)."],
+["He never tells lies. He is very ___.",["honest","lazy","shy"],0,"Tidak pernah bohong bermaksud honest."],
+["Huge means the same as ___.",["tiny","enormous","narrow"],1,"Huge sama makna dengan enormous."],
+["She felt ___ when she won the prize.",["delighted","furious","bored"],0,"Menang hadiah buat dia gembira: delighted."],
+["Please ___ the form before you submit it.",["fill in","fill up the","fill to"],0,"Fill in the form: isi borang."]
+];
+var R1=[
+["LIBRARY NOTICE: The library will be closed on Friday for cleaning. Students may borrow books until Thursday, 4 p.m. All books must be returned by next Monday.","What must students do?",["Return books by Monday","Borrow books on Friday","Clean the library on Thursday"],0,"Notis kata semua buku mesti dipulangkan sebelum Isnin."],
+["Hi Dina, I can't join you at the mall tomorrow. Mum wants me to look after my little brother. Maybe we can watch a movie on Sunday instead? Tell me if you are free. Nisa","Why can't Nisa go to the mall?",["She has a test","She must look after her brother","She is going to the movies"],1,"Ibunya mahu dia menjaga adik."],
+["Please do not feed the monkeys. They may bite you and the food can make them sick.","Why should visitors not feed the monkeys?",["They may hurt people and get ill","They are afraid of people","They only eat at night"],0,"Monyet boleh menggigit dan makanan buat mereka sakit."],
+["Dear parents, The Science Fair will be held on 12 March at 10 a.m. in the school hall. Students must bring their projects by 8 a.m. Parents are welcome.","What must students do on 12 March?",["Arrive at 10 a.m.","Bring projects by 8 a.m.","Invite their teachers"],1,"Projek mesti dibawa sebelum 8 pagi."],
+["FRESH BAKERY: Buy two loaves of bread and get a cake free! Offer ends Sunday.","What do customers get if they buy two loaves?",["A free cake","A free drink","Half price"],0,"Beli dua roti, dapat kek percuma."],
+["Dad, my phone battery is low. I will be home late because the bus is delayed. Please don't wait for dinner. Amir","What does Amir want his father to do?",["Fetch him","Eat without waiting","Charge his phone"],1,"Dia minta ayah tidak tunggu untuk makan malam."],
+["SWIMMING POOL RULES: Shower before entering. No running. Children under 12 must be with an adult.","Who needs an adult?",["Everybody","Children under 12","Anyone who runs"],1,"Kanak-kanak bawah 12 tahun mesti ditemani orang dewasa."],
+["Hasna was nervous before her speech. She took a deep breath, smiled and began. By the end, everyone clapped.","What helped Hasna begin her speech?",["A deep breath and a smile","A glass of water","Her teacher's help"],0,"Dia tarik nafas dalam dan senyum."]
+];
+var R3text="When Zara moved to a new town, she felt lonely. Her flat had no garden, only a small balcony. One Saturday, she saw a poster about a community garden near her school. Volunteers were needed to grow vegetables for families in need. Zara was shy, but she decided to try. On the first day, an old man named Mr Ong showed her how to plant chillies. \"Be patient,\" he said. \"Plants need time and care.\" Soon Zara met other volunteers and made new friends. After three months, the garden produced so many vegetables that the volunteers gave more than fifty bags to local families. Zara realised that helping others had also helped her. Now, she visits the garden every weekend and teaches new volunteers.";
+var R3=[
+["Why did Zara feel lonely at first?",["She had just moved to a new town","She did not like her school","She had no balcony"],0,"Ayat pertama: dia baru berpindah ke bandar baharu."],
+["What attracted Zara to the community garden?",["A friend's invitation","A poster asking for volunteers","A gardening class"],1,"Dia nampak poster tentang kebun komuniti."],
+["What advice did Mr Ong give?",["Work fast","Be patient with plants","Plant more chillies"],1,"Mr Ong kata: Be patient."],
+["How many bags of vegetables did the volunteers give?",["Fewer than fifty","Exactly fifty","More than fifty"],2,"Teks: more than fifty bags."],
+["What did Zara realise?",["Gardens are expensive","Helping others also helped her","She preferred her balcony"],1,"Zara realised that helping others had also helped her."],
+["What does Zara do now?",["Teaches new volunteers","Sells vegetables","Plants flowers at home"],0,"Kini dia mengajar sukarelawan baharu."]
+];
+var P4={text:["Many students feel stressed before exams. ","[1]"," First, make a study timetable so that you can cover every subject. ","[2]"," This helps you remember more, because your brain needs rest. Next, sleep for at least seven hours every night. ","[3]"," Finally, eat healthy food and drink enough water. ","[4]"],
+opts:{A:"Take a short break after every 45 minutes of study.",B:"Tired students often make careless mistakes.",C:"Luckily, there are simple ways to feel calmer.",D:"He bought a new bicycle last week.",E:"A healthy body helps you think clearly.",F:"Exams will be held in December."},
+ans:{1:"C",2:"A",3:"B",4:"E"},
+why:{1:"Pengenalan: ayat ini menjawab masalah stres, dan 'First' mengikutinya.",2:"Rehat selepas belajar, kemudian 'This helps you remember more, because your brain needs rest'.",3:"Selepas tidur, ayat tentang pelajar yang penat sesuai.",4:"Selepas makan sihat, ayat tentang badan sihat berfikir dengan jelas."}};
+var L1=[
+["Man: Excuse me, is this seat taken? Woman: No, please sit. I am just waiting for the bus. Man: Thanks. I think it is late today.","Where are they?",["In a library","At a bus stop","In a cinema"],1,"Mereka menunggu bas."],
+["Girl: Mum, can I go to Aina's house after school? Mother: Have you finished your homework? Girl: Not yet, but I will do it when I come back. Mother: Alright, but be home by six.","What does the mother ask the girl to do?",["Finish homework first","Be home by six","Call Aina"],1,"Ibu kata: be home by six."],
+["Announcement: Attention please. The three o'clock train to Johor Bahru has been delayed by twenty minutes. It will now leave at three twenty from platform four.","When will the train leave?",["3:00","3:20","4:20"],1,"Lewat 20 minit: 3:20."],
+["Boy: Did you buy the football tickets? Girl: Not yet. They were thirty ringgit, but now they are twenty-five because of a discount. Boy: Great, let's buy two.","How much is one ticket now?",["RM20","RM25","RM30"],1,"Harga kini twenty-five (RM25) kerana diskaun."]
+];
+var L2text="Teacher: Class, our trip to the science museum will be on Wednesday, not Tuesday as I said earlier. Please arrive at school by seven thirty. Student: Do we need to bring lunch, Miss? Teacher: No, lunch will be provided, but bring a bottle of water. Student: Is it okay to take photos? Teacher: Yes, but not inside the planetarium. Student: How will we travel? Teacher: By school bus, and we will return at four o'clock.";
+var L2=[
+["When is the trip?",["Tuesday","Wednesday","Thursday"],1,"Wednesday, bukan Tuesday."],
+["What must the students bring?",["Lunch","A bottle of water","A camera"],1,"Makan tengah hari disediakan, bawa botol air."],
+["Where are photos not allowed?",["In the museum shop","In the planetarium","On the bus"],1,"Not inside the planetarium."],
+["What time will they return?",["7:30","3:00","4:00"],2,"Pulang pukul empat."]
+];
+var L3=[["I waited an hour and the food still had not arrived. I will not come back.","B"],["I have never seen such a beautiful view. I could stay here all day.","E"],["I am so nervous. I have not practised enough for tomorrow's test.","A"],["Thank you so much! I did not expect a present.","C"],["I think you should apologise to her. It was your mistake.","D"]];
+var L3opts={A:"Worried about a test",B:"Complaining about bad service",C:"Thankful for a gift",D:"Giving advice",E:"Enjoying the scenery",F:"Planning a holiday",G:"Looking for a lost item"};
+var L4text="Hello everyone. This is a reminder about the school camping trip. The camp will be at Gunung Jerai from the fifteenth of January to the seventeenth. Each student must pay eighty ringgit by the tenth of December. Please bring a sleeping bag, a torch and insect repellent. The bus will leave from the school field at six in the morning.";
+var L4=[["Place of camp","gunung jerai",["gunung jerai","jerai"]],["Dates: 15 January to ___ January","17",["17","17th","seventeenth","seventeen"]],["Fee: RM ___","80",["80","eighty"]],["Pay by ___ December","10",["10","10th","tenth","ten"]],["Bring: sleeping bag, ___, insect repellent","torch",["torch","a torch","flashlight"]],["Bus leaves from the school ___","field",["field","school field"]]];
+var W=[
+{id:"p1a",part:"Part 1",lim:[0,80],title:"Email kepada kawan",task:"You are Aiman. Write an email to your friend, Hadi. Tell him about the class picnic.\n\nNotes:\n- Place: Taman Tasik\n- Day and time: Saturday, 9 a.m.\n- Bring: drinks and a mat\n- Activities: games and lunch",pts:[["Tempat: Taman Tasik",["taman tasik"]],["Hari dan masa: Saturday, 9 a.m.",["saturday"]],["Bawa: minuman dan tikar",["drink","mat"]],["Aktiviti: permainan dan makan tengah hari",["game","lunch"]]],kind:"inf",
+ model:"Dear Hadi,\nHow are you? I am writing to invite you to our class picnic. It will be held at Taman Tasik this Saturday at 9 a.m. Please bring some drinks and a mat. We will play games and have lunch together. I hope you can come.\nBest wishes,\nAiman"},
+{id:"p1b",part:"Part 1",lim:[0,80],title:"Nota kepada guru",task:"You are Salina. Write a note to your teacher, Puan Azah.\n\nNotes:\n- You cannot come to school on Monday\n- Reason: dentist appointment\n- Ask for the homework\n- You will bring a letter from the clinic on Tuesday",pts:[["Tidak hadir pada hari Isnin: Monday",["monday"]],["Sebab: dentist",["dentist"]],["Minta kerja rumah: homework",["homework"]],["Bawa surat: letter",["letter"]]],kind:"inf",
+ model:"Dear Puan Azah,\nI am sorry, but I cannot come to school on Monday because I have a dentist appointment. Could I please have the homework for that day? I will bring a letter from the clinic on Tuesday. Thank you for your understanding.\nYours sincerely,\nSalina"},
+{id:"p2a",part:"Part 2",lim:[125,150],title:"E-mel formal kepada pengetua",task:"You are Farid. Write an email to the principal, Mr Rahman, with suggestions to improve the school canteen.\n\nNotes:\n- Food is expensive: sell cheaper meals\n- Long queues: open a second counter\n- Dirty tables: hire a cleaner\n\n(125 to 150 words)",pts:[["Makanan mahal: expensive / cheap",["expensive","cheap","price"]],["Barisan panjang: queue / counter",["queue","counter"]],["Meja kotor: dirty / clean",["dirty","clean"]]],kind:"formal",
+ model:"Dear Mr Rahman,\n\nI am writing to suggest some ways to improve our school canteen.\n\nFirstly, the food is expensive for many students. I would like to suggest that the canteen sells cheaper meals, such as rice with vegetables and egg. This will help students who bring only a small allowance.\n\nSecondly, the queues are very long during recess. As a result, many students do not have enough time to eat. I recommend that the school opens a second counter so that more students can be served quickly.\n\nIn addition, the tables are often dirty after use. It would be better if the school hired a cleaner to wipe the tables regularly. This will make the canteen more pleasant for everyone.\n\nI would appreciate it if you could consider my suggestions. Thank you for your time.\n\nYours sincerely,\nFarid"},
+{id:"p2b",part:"Part 2",lim:[125,150],title:"Artikel majalah sekolah",task:"You are writing an article for the school magazine called \"Why Reading Is Important\".\n\nNotes:\n- It gives you knowledge\n- It improves your vocabulary\n- It helps you relax\n\n(125 to 150 words)",pts:[["Memberi pengetahuan: knowledge",["knowledge","learn"]],["Memperbaiki perbendaharaan kata: vocabulary / words",["vocabulary","words"]],["Membantu bertenang: relax",["relax","calm","stress"]]],kind:"article",
+ model:"Why Reading Is Important\n\nHave you ever wondered why teachers always tell us to read more? Reading is one of the best habits we can build.\n\nFirstly, reading gives us knowledge. Through books and articles, we can learn about people, places and ideas from all over the world. For example, a history book can take us back hundreds of years.\n\nSecondly, reading improves our vocabulary. When we meet new words in a story, we learn how to use them in sentences. As a result, our writing and speaking become better.\n\nLastly, reading helps us relax. After a tiring day, a good book can calm our minds and reduce stress.\n\nIn conclusion, reading is a simple habit with many benefits. Let us all take a book and start reading today."},
+{id:"p3a",part:"Part 3",lim:[200,250],title:"Cerita",task:"Write a story that begins with: \"The lights suddenly went out.\"\n\n(200 to 250 words)",pts:[["Mula dengan ayat yang diberi: The lights suddenly went out",["lights suddenly went out"]],["Ada dialog (tanda petikan)",["\""]],["Ada pengajaran atau penutup: learnt / lesson",["learnt","learned","lesson"]]],kind:"story",
+ model:"The lights suddenly went out. I was alone in the living room, doing my homework, and the whole house became dark. My heart began to beat faster.\n\n\"Mum! Dad!\" I called. There was no answer. Then I remembered that they had gone to my grandmother's house and would only be back at ten.\n\nI felt afraid, but I knew I had to stay calm. I took a deep breath and walked slowly to the kitchen to find a torch. Suddenly, I heard a strange noise outside the window. I stopped. My hands were shaking.\n\nHowever, I forced myself to look. To my surprise, it was only a cat looking for food. I laughed at myself and gave it a piece of fish.\n\nAfter a few minutes, the lights came back on. The electricity company had been repairing a cable nearby. When my parents came home, I told them everything. \"I am proud of you,\" said Dad.\n\nThe next morning, I told my friends about my adventure at school and we all laughed together for a long time. From that night, I learnt that being brave does not mean having no fear. It means staying calm and thinking clearly when things go wrong."},
+{id:"p3b",part:"Part 3",lim:[200,250],title:"Karangan pendapat",task:"Do you think students should use mobile phones in school? Give your opinion.\n\n(200 to 250 words)",pts:[["Nyatakan pendapat: In my opinion",["in my opinion","i believe","i think"]],["Ada contoh: for example",["for example","for instance"]],["Ada penutup: in conclusion",["in conclusion","to sum up"]]],kind:"opinion",
+ model:"In today's world, mobile phones are everywhere. Some people believe that students should not bring them to school, while others think they are useful. In my opinion, students should be allowed to use phones, but only under rules.\n\nFirstly, phones can help students learn. For example, they can look up words in a dictionary or watch a video to understand a difficult topic. As a result, lessons become more interesting.\n\nSecondly, phones are important for safety. If a student has an emergency, he or she can call parents quickly. This is especially useful when the bus is late or when the weather is bad.\n\nSome people may argue that phones distract students. This is true if they play games during lessons. However, the school can solve this problem by making clear rules. For instance, phones must be switched off in class and used only when the teacher allows.\n\nMoreover, phones can help students stay organised. They can set reminders for homework and tests, so students are less likely to forget important tasks. This is a habit that will also help them in the future.\n\nIn conclusion, phones can be useful tools if they are used wisely. Therefore, schools should allow students to bring phones but control how they are used."}
+];
+
+var T=[['esok','📅','Esok'],['latih','🎯','Latih'],['tulisan','✍️','Tulis'],['templat','🧩','Templat'],['dengar','💡','Tip']];
+var TIPS=['dengar','baca','tiptulis'];
+document.getElementById('nav').innerHTML=T.map(function(t){return '<button data-t="'+t[0]+'"><span class="i">'+t[1]+'</span>'+t[2]+'</button>'}).join('');
+function go(id){document.querySelectorAll('section').forEach(function(s){s.classList.toggle('on',s.id===id)});var nid=TIPS.indexOf(id)>=0?'dengar':id;document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('on',b.dataset.t===nid)});window.scrollTo({top:0,behavior:'smooth'})}
+document.getElementById('nav').addEventListener('click',function(e){var b=e.target.closest('button');if(b)go(b.dataset.t)});
+var $=function(i){return document.getElementById(i)};
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function shuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+var P={};try{P=JSON.parse(localStorage.getItem('bi-prog')||'{}')}catch(e){}
+function save(k,v){P[k]=Math.max(P[k]||0,v);try{localStorage.setItem('bi-prog',JSON.stringify(P))}catch(e){}}
+/* tip chips */
+var tipLabels={dengar:'🎧 Dengar',baca:'📖 Reading',tiptulis:'✍️ Writing'};
+TIPS.forEach(function(id){var d=document.createElement('div');d.className='sub';d.innerHTML=TIPS.map(function(t){return '<button data-s="'+t+'"'+(t===id?' class="on"':'')+'>'+tipLabels[t]+'</button>'}).join('');d.addEventListener('click',function(e){var b=e.target.closest('button');if(b)go(b.dataset.s)});var s=$(id);s.insertBefore(d,s.firstChild)});
+/* speech */
+var VO=null;function pickVoice(){try{var v=speechSynthesis.getVoices();VO=v.filter(function(x){return /^en[-_](GB|AU|US)/i.test(x.lang)})[0]||v.filter(function(x){return /^en/i.test(x.lang)})[0]||null}catch(e){}}
+try{pickVoice();speechSynthesis.onvoiceschanged=pickVoice}catch(e){}
+function speak(text,done){if(!('speechSynthesis' in window)){alert('Peranti ini tidak menyokong suara. Baca transkrip.');return}
+speechSynthesis.cancel();var parts=text.split(/(?=\b(?:Man|Woman|Girl|Boy|Mother|Teacher|Student|Announcement):)/).filter(function(x){return x.trim()});var n=0;
+parts.forEach(function(p,i){var m=p.match(/^(Man|Woman|Girl|Boy|Mother|Teacher|Student|Announcement):\s*/);var who=m?m[1]:'';var t=p.replace(/^[A-Za-z]+:\s*/,'');var u=new SpeechSynthesisUtterance(t);if(VO)u.voice=VO;u.lang=VO?VO.lang:'en-GB';u.rate=.88;u.pitch=/Woman|Girl|Mother|Student/.test(who)?1.25:(/Man|Boy|Teacher/.test(who)?.85:1);if(i===parts.length-1)u.onend=function(){if(done)done()};speechSynthesis.speak(u)})}
+function player(text,max){var plays=0;var d=document.createElement('div');d.innerHTML='<button class="say">▶</button><div style="text-align:center;font-size:.82rem" class="pc"></div><details><summary>Transkrip (kalau suara tak keluar)</summary><div class="in pas">'+esc(text)+'</div></details>';var b=d.querySelector('.say'),pc=d.querySelector('.pc');function upd(){pc.textContent='Dimainkan '+plays+' / '+max+' kali'}upd();b.onclick=function(){if(plays>=max){pc.textContent='Sudah '+max+' kali, macam peperiksaan sebenar. Jawab dahulu.';return}plays++;upd();b.textContent='🔊';speak(text,function(){b.textContent='▶'})};return d}
+/* quiz engine */
+function quiz(box,items,o){o=o||{};var i=0,sc=0,wrong=[];var h=document.createElement('div');box.appendChild(h);
+function show(){h.innerHTML='';if(i>=items.length){fin();return}var it=items[i];var c=document.createElement('div');c.className='card';
+c.innerHTML='<div style="font-size:.78rem;font-weight:800;color:var(--mut)">Soalan '+(i+1)+' / '+items.length+'</div><div class="prog"><i style="width:'+(i/items.length*100)+'%"></i></div>'+(o.passage?'<div class="pas">'+esc(o.passage)+'</div>':'')+(o.perItem&&it[5]!==undefined?'':'' )+'<div class="q"></div><div class="os"></div><div class="fbx"></div>';
+h.appendChild(c);var q=c.querySelector('.q');
+if(o.speakItems){q.appendChild(player(it[0],2));var qq=document.createElement('p');qq.style.fontWeight='700';qq.textContent=it[1];q.appendChild(qq)}
+else if(o.passageItem){q.innerHTML='<div class="pas">'+esc(it[0])+'</div><p style="font-weight:700">'+esc(it[1])+'</p>'}
+else{q.innerHTML='<p style="font-weight:700;font-size:1.02rem">'+esc(it[0])+'</p>'}
+var opts=o.speakItems||o.passageItem?it[2]:it[1],ans=o.speakItems||o.passageItem?it[3]:it[2],ex=o.speakItems||o.passageItem?it[4]:it[3];
+var os=c.querySelector('.os'),done=false;
+opts.forEach(function(t,k){var b=document.createElement('button');b.className='opt';b.textContent='ABC'[k]+'.  '+t;b.onclick=function(){if(done)return;done=true;var okk=k===ans;if(okk)sc++;else wrong.push([it,opts,ans,ex]);[].forEach.call(os.children,function(x,j){if(j===ans)x.classList.add('ok');else if(j===k)x.classList.add('no')});c.querySelector('.fbx').innerHTML='<div class="fb '+(okk?'g':'b')+'"><b>'+(okk?'Betul!':'Belum tepat.')+'</b> '+esc(ex)+(okk?'':' Jawapan: '+'ABC'[ans]+'.')+'</div>'+(o.speakItems?'<div class="pas">'+esc(it[0])+'</div>':'');var n=document.createElement('button');n.className='btn';n.textContent=i+1<items.length?'Seterusnya':'Lihat markah';n.onclick=function(){i++;show();window.scrollTo({top:0})};c.querySelector('.fbx').appendChild(n)};os.appendChild(b)})}
+function fin(){var pct=Math.round(sc/items.length*100);if(o.key)save(o.key,pct);var c=document.createElement('div');c.className='card';c.innerHTML='<div class="big">'+sc+' / '+items.length+'</div><p style="text-align:center;font-weight:700">'+(pct>=80?'Bagus! Teruskan.':pct>=50?'Boleh tahan. Ulang yang salah.':'Jangan risau, ulang dan baca penjelasan.')+'</p>';
+if(wrong.length){var w=document.createElement('details');w.open=true;w.innerHTML='<summary>Semak yang salah ('+wrong.length+')</summary><div class="in">'+wrong.map(function(x){var it=x[0],oo=o.speakItems||o.passageItem;return '<div class="fb b"><b>'+esc(it[oo?1:0])+'</b><br>Jawapan: '+esc(x[1][x[2]])+'<br>'+esc(x[3])+'</div>'}).join('')+'</div>';c.appendChild(w)}
+var r=document.createElement('button');r.className='btn';r.textContent='Ulang';r.onclick=function(){i=0;sc=0;wrong=[];items=shuf(items);show()};c.appendChild(r);h.innerHTML='';h.appendChild(c)}
+show()}
+/* latih menu */
+var ACT=[
+['g1','📝','Grammar Set 1','12 soalan','#5f3dc4',function(b){quiz(b,G.slice(0,12),{key:'g1'})}],
+['g2','📝','Grammar Set 2','12 soalan','#7c2a93',function(b){quiz(b,G.slice(12,24),{key:'g2'})}],
+['g3','📝','Grammar Set 3','12 soalan','#c2255c',function(b){quiz(b,G.slice(24,36),{key:'g3'})}],
+['r1','📖','Reading Part 1','8 teks pendek','#1864ab',function(b){quiz(b,R1,{passageItem:true,key:'r1'})}],
+['r3','📰','Reading Part 3','Teks panjang','#0b7285',function(b){quiz(b,R3,{passage:R3text,key:'r3'})}],
+['p4','🧩','Reading Part 4','Isi ayat hilang','#b84508',function(b){p4(b)}],
+['l1','🎧','Listening Part 1','4 dialog pendek','#0b7285',function(b){quiz(b,L1,{speakItems:true,key:'l1'})}],
+['l2','🎧','Listening Part 2','Lawatan muzium','#1864ab',function(b){b.appendChild(player(L2text,2));quiz(b,L2,{key:'l2'})}],
+['l3','🎤','Listening Part 3','5 penutur, padan','#7c2a93',function(b){l3(b)}],
+['l4','📋','Listening Part 4','Isi nota','#c2255c',function(b){l4(b)}]];
+function menu(){var s=$('lstage');s.innerHTML='<div class="menu"></div><p style="font-size:.78rem;color:var(--mut);margin-top:12px">Suara guna suara telefon anda (bahasa Inggeris). Kalau tak keluar, buka Transkrip. Markah terbaik disimpan di telefon ini.</p>';var m=s.firstChild;ACT.forEach(function(a){var b=document.createElement('button');b.className='mt';b.style.background=a[4];b.innerHTML='<span class="e">'+a[1]+'</span>'+a[2]+'<small>'+a[3]+(P[a[0]]!==undefined?' | terbaik '+P[a[0]]+'%':'')+'</small>';b.onclick=function(){run(a)};m.appendChild(b)})}
+function run(a){var s=$('lstage');s.innerHTML='';var bk=document.createElement('button');bk.className='back';bk.textContent='← Menu';bk.onclick=function(){try{speechSynthesis.cancel()}catch(e){}menu()};s.appendChild(bk);var t=document.createElement('h3');t.textContent=a[2];t.style.margin='4px 0 8px';s.appendChild(t);var b=document.createElement('div');s.appendChild(b);a[5](b);window.scrollTo({top:0})}
+function p4(b){var c=document.createElement('div');c.className='card';var h='<p style="font-size:.85rem;color:var(--mut)">Pilih ayat yang sesuai untuk setiap tempat [1] hingga [4]. Satu pilihan tak digunakan.</p><div class="pas">';P4.text.forEach(function(t){var m=t.match(/^\[(\d)\]$/);if(m)h+='<b style="color:var(--pri)">['+m[1]+']</b>';else h+=esc(t)});h+='</div>';h+='<div class="pas" style="border-color:#0b7285">'+Object.keys(P4.opts).map(function(k){return '<b>'+k+'.</b> '+esc(P4.opts[k])}).join('\n')+'</div>';for(var n=1;n<=4;n++)h+='<div>['+n+'] <select class="sl" data-n="'+n+'"><option value="">Pilih</option>'+Object.keys(P4.opts).map(function(k){return '<option>'+k+'</option>'}).join('')+'</select><div class="wy" id="wy'+n+'"></div></div>';h+='<button class="btn" id="p4c">Semak</button><div id="p4r"></div>';c.innerHTML=h;b.appendChild(c);
+c.querySelector('#p4c').onclick=function(){var sc=0;c.querySelectorAll('select').forEach(function(s){var n=s.dataset.n,ok=s.value===P4.ans[n];if(ok)sc++;s.className='sl '+(ok?'ok':'no');c.querySelector('#wy'+n).innerHTML='<div class="fb '+(ok?'g':'b')+'">'+(ok?'Betul. ':'Jawapan: '+P4.ans[n]+'. ')+esc(P4.why[n])+'</div>'});save('p4',sc*25);c.querySelector('#p4r').innerHTML='<div class="big">'+sc+' / 4</div><p style="text-align:center;font-size:.85rem">Tip: baca ayat sebelum dan selepas tempat kosong. Cari kata rujukan seperti This, First, Next.</p>'}}
+function l3(b){var c=document.createElement('div');c.className='card';var h='<p style="font-size:.85rem;color:var(--mut)">Dengar setiap penutur, pilih perasaan atau tujuan. Dua pilihan tidak digunakan.</p><div class="pas">'+Object.keys(L3opts).map(function(k){return '<b>'+k+'.</b> '+L3opts[k]}).join('\n')+'</div><div id="l3l"></div><button class="btn" id="l3c">Semak</button><div id="l3r"></div>';c.innerHTML=h;b.appendChild(c);var l=c.querySelector('#l3l');
+L3.forEach(function(x,i){var d=document.createElement('div');d.style.cssText='border-top:1px solid var(--line);padding:8px 0';d.innerHTML='<b>Penutur '+(i+1)+'</b>';d.appendChild(player(x[0],2));var s=document.createElement('select');s.className='sl';s.innerHTML='<option value="">Pilih</option>'+Object.keys(L3opts).map(function(k){return '<option>'+k+'</option>'}).join('');d.appendChild(s);l.appendChild(d)});
+c.querySelector('#l3c').onclick=function(){var sc=0;[].forEach.call(l.children,function(d,i){var s=d.querySelector('select'),ok=s.value===L3[i][1];if(ok)sc++;s.className='sl '+(ok?'ok':'no');if(!d.querySelector('.fb')){var f=document.createElement('div');f.className='fb '+(ok?'g':'b');f.textContent=(ok?'Betul. ':'Jawapan: '+L3[i][1]+'. ')+L3[i][0];d.appendChild(f)}});save('l3',Math.round(sc/5*100));c.querySelector('#l3r').innerHTML='<div class="big">'+sc+' / 5</div>'}}
+function l4(b){var c=document.createElement('div');c.className='card';c.appendChild(player(L4text,2));var f=document.createElement('div');f.innerHTML='<p style="font-size:.85rem;color:var(--mut);margin-top:8px">Isi tempat kosong. Maksimum 1 hingga 3 perkataan. Ejaan mesti betul.</p>'+L4.map(function(x,i){return '<label style="font-weight:600;font-size:.9rem">'+(i+1)+'. '+esc(x[0])+'</label><input class="tx" data-i="'+i+'" autocomplete="off" autocapitalize="off">'}).join('')+'<button class="btn" id="l4c">Semak</button><div id="l4r"></div>';c.appendChild(f);b.appendChild(c);
+f.querySelector('#l4c').onclick=function(){var sc=0;f.querySelectorAll('input').forEach(function(inp){var x=L4[inp.dataset.i],v=inp.value.trim().toLowerCase(),ok=x[2].indexOf(v)>=0;if(ok)sc++;inp.className='tx '+(ok?'ok':'no');if(!ok)inp.value=inp.value+'  (jawapan: '+x[1]+')'});save('l4',Math.round(sc/6*100));f.querySelector('#l4r').innerHTML='<div class="big">'+sc+' / 6</div><div class="pas">'+esc(L4text)+'</div>'}}
+menu();
+/* writing practice */
+var CUR=0,DR={};try{DR=JSON.parse(localStorage.getItem('bi-draft')||'{}')}catch(e){}
+function wcount(t){var m=t.trim().match(/\S+/g);return m?m.length:0}
+var LINK=['firstly','secondly','thirdly','finally','in addition','moreover','however','therefore','as a result','for example','for instance','in conclusion','to sum up','besides','although','because','suddenly','after that','meanwhile','lastly','furthermore','on the other hand'];
+var ERR=[[/\bI am agree\b/i,'"I am agree" salah. Guna "I agree".'],[/\binformations?\b/i,'"information" tak ada jamak. Guna "information".'],[/\bI very like\b/i,'Guna "I like it very much".'],[/\bmore (tall|big|small|fast|old|young|long|short|cheap)er\b/i,'Jangan guna more bersama -er.'],[/\b(he|she|it) (go|have|do|want|like|play|read|make|take|need|come)\b/i,'He/She/It + kata kerja tambah s: goes, has, does.'],[/\b(didn't|did not|don't|doesn't|can|will|must) (went|saw|ate|took|came|got|did|had|goes|has)\b/i,'Selepas didn\'t/can/will guna kata kerja asas.'],[/(^|[\s(])i([\s,.!?']|$)/,'Huruf "I" mesti besar.'],[/\b(\w+)\s+\1\b/i,'Ada perkataan berulang.'],[/\b(furnitures|equipments|advices|homeworks|knowledges)\b/i,'Perkataan ini tidak ada jamak.'],[/\bcan able\b/i,'Guna "can" atau "be able to" sahaja.'],[/\bdiscuss about\b/i,'"discuss" tidak perlu "about".'],[/\bmany (water|money|rice|food|time)\b/i,'Guna "much" atau "a lot of" untuk benda tak boleh dikira.']];
+function wmenu(){var s=$('wstage');s.innerHTML='<div class="menu"></div>';var m=s.firstChild;W.forEach(function(w,i){var b=document.createElement('button');b.className='mt';b.style.background=w.part==='Part 1'?'#0b7285':w.part==='Part 2'?'#b84508':'#7c2a93';var d=DR[w.id];b.innerHTML='<span class="e">'+(w.part==='Part 1'?'✉️':w.part==='Part 2'?'📄':'📖')+'</span>'+w.part+': '+w.title+'<small>'+(w.lim[0]?w.lim[0]+' hingga '+w.lim[1]+' perkataan':'bawah '+w.lim[1]+' perkataan')+(d?' | ada draf':'')+'</small>';b.onclick=function(){wopen(i)};m.appendChild(b)})}
+function wopen(i,pre){var w=W[i];CUR=i;var s=$('wstage');s.innerHTML='';var bk=document.createElement('button');bk.className='back';bk.textContent='← Senarai tugasan';bk.onclick=wmenu;s.appendChild(bk);var c=document.createElement('div');c.className='card';c.innerHTML='<span class="badge">'+w.part+'</span><div class="pas" style="border-color:#b84508">'+esc(w.task)+'</div><textarea class="wr" id="wt" placeholder="Tulis jawapan di sini..."></textarea><div class="wc"><span id="wn">0 perkataan</span><span id="wl"></span></div><button class="btn" id="wk">Semak</button><button class="btn o" id="wm">Lihat model</button><button class="btn o" id="wc">Kosongkan</button><div id="wr"></div>';s.appendChild(c);var ta=c.querySelector('#wt');ta.value=pre!==undefined?pre:(DR[w.id]||'');
+function cnt(){var n=wcount(ta.value),lim=w.lim;var ok=n>=lim[0]&&n<=lim[1];c.querySelector('#wn').textContent=n+' perkataan';var l=c.querySelector('#wl');l.textContent=(lim[0]?lim[0]+' hingga '+lim[1]:'maks '+lim[1]);l.className=ok?'good':(n>0?'bad':'');try{DR[w.id]=ta.value;localStorage.setItem('bi-draft',JSON.stringify(DR))}catch(e){}}
+ta.oninput=cnt;cnt();
+c.querySelector('#wc').onclick=function(){ta.value='';cnt();c.querySelector('#wr').innerHTML=''};
+c.querySelector('#wm').onclick=function(){c.querySelector('#wr').innerHTML='<div class="pas" style="border-color:#2b8a3e">'+esc(w.model)+'</div><p style="font-size:.78rem;color:var(--mut)">Model buatan saya ('+wcount(w.model)+' perkataan). Banding susunan dan frasa, jangan salin bulat-bulat.</p>'};
+c.querySelector('#wk').onclick=function(){var t=ta.value,low=t.toLowerCase(),n=wcount(t),h='<ul class="rs">';function li(ok,m){h+='<li>'+(ok?'✅ ':'⚠️ ')+m+'</li>'}
+if(n<5){c.querySelector('#wr').innerHTML='<div class="fb b">Tulis dahulu.</div>';return}
+li(n>=w.lim[0]&&n<=w.lim[1],'Perkataan: '+n+' (had '+(w.lim[0]?w.lim[0]+' hingga '+w.lim[1]:'maks '+w.lim[1])+')');
+w.pts.forEach(function(p){var f=p[1].some(function(k){return low.indexOf(k)>=0});li(f,'Isi: '+p[0])});
+var paras=t.split(/\n\s*\n|\n/).filter(function(x){return x.trim()}).length;
+if(w.kind==='formal'||w.kind==='article'||w.kind==='story'||w.kind==='opinion')li(paras>=3,'Perenggan: '+paras+' (sasarkan 3 atau lebih)');
+if(w.kind==='formal'){li(/^\s*dear\b/i.test(t),'Mula dengan Dear ...');li(/yours (sincerely|faithfully)/i.test(t),'Tutup dengan Yours sincerely/faithfully');li(/i am writing to|i would like to|i would appreciate/i.test(t),'Ada ayat pembuka atau permintaan formal')}
+if(w.kind==='inf'){li(/^\s*dear\b/i.test(t),'Mula dengan Dear ...');li(/(best wishes|yours|regards|thank)/i.test(t),'Ada penutup (Best wishes / Yours)')}
+if(w.kind==='story'){li(low.indexOf('lights suddenly went out')>=0,'Mula dengan ayat yang diberi');li(t.indexOf('"')>=0||t.indexOf('“')>=0,'Ada dialog')}
+var lk=LINK.filter(function(k){return low.indexOf(k)>=0});li(lk.length>=(w.part==='Part 1'?0:3),'Penghubung digunakan: '+(lk.length?lk.join(', '):'tiada')+(w.part==='Part 1'?'':' (sasarkan 3 atau lebih)'));
+var caps=t.split(/[.!?]\s+/).filter(function(x){return /^[a-z]/.test(x.trim())}).length;li(caps===0,'Huruf besar di awal ayat'+(caps?' ('+caps+' ayat bermula huruf kecil)':''));
+var er=ERR.filter(function(e){return e[0].test(t)});h+='</ul>';
+if(er.length)h+='<div class="fb b"><b>Kesilapan biasa dikesan</b><ul>'+er.map(function(e){return '<li>'+esc(e[1])+'</li>'}).join('')+'</ul></div>';else h+='<div class="fb g">Tiada kesilapan biasa dikesan oleh senarai ini. Ini tidak bermakna jawapan sempurna.</div>';
+h+='<p style="font-size:.78rem;color:var(--mut)">Senarai semak sahaja, bukan markah rasmi. Baca semula untuk ejaan dan tatabahasa.</p>';c.querySelector('#wr').innerHTML=h}}
+wmenu();
+/* fillable templates */
+document.querySelectorAll('.tp .ex').forEach(function(e){var raw=e.textContent;var h=esc(raw).replace(/\{([^}]+)\}/g,function(m,x){return '<input class="ti" data-ph="'+x+'" placeholder="'+x+'" size="'+Math.max(6,Math.min(x.length,22))+'">'});e.innerHTML=h;var hdr=e.parentNode.querySelector('h3');var bn=document.createElement('button');bn.className='btn g';bn.textContent='Hantar ke Latihan Menulis';bn.onclick=function(){var t='';e.childNodes.forEach(function(n){t+=n.nodeType===3?n.textContent:(n.value||'['+n.dataset.ph+']')});var pick=0;if(/Part 2|formal|principal|artikel/i.test(e.closest('.grp')?e.closest('.grp').id:''))pick=2;go('tulisan');wopen(pick,t.replace(/ +/g,' '))};e.parentNode.appendChild(bn);var n2=document.createElement('button');n2.className='btn o';n2.textContent='Padam isian';n2.onclick=function(){e.querySelectorAll('input').forEach(function(i){i.value=''})};e.parentNode.appendChild(n2)});
+document.querySelector('#templat .chips').addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;document.querySelectorAll('#templat .chip').forEach(function(x){x.classList.toggle('on',x===b)});document.querySelectorAll('#templat .grp').forEach(function(g){g.classList.toggle('on',g.id==='g_'+b.dataset.g)})});
+
+go('esok');
+var tgt=new Date('2026-11-24T09:00:00+08:00').getTime();
+function tick(){var d=tgt-Date.now();var el=document.getElementById('cd');if(d<=0){el.innerHTML='<div><b>Semoga berjaya</b></div>';return}
+var h=Math.floor(d/3600000),m=Math.floor(d%3600000/60000);el.innerHTML='<div><b>'+h+'</b><span>jam</span></div><div><b>'+m+'</b><span>minit</span></div><div style="align-self:center;font-size:.8rem;text-align:left">sebelum Ujian<br>Mendengar</div>'}
+tick();setInterval(tick,30000);
+try{document.querySelectorAll('.chk input').forEach(function(c,i){c.checked=localStorage.getItem('bi'+i)==='1';c.addEventListener('change',function(){try{localStorage.setItem('bi'+i,c.checked?'1':'0')}catch(e){}})})}catch(e){}
+</script><script>if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(function(){})</script></body></html>
