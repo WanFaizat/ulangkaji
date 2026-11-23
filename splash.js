@@ -1,7 +1,7 @@
 (function(){
 try{if(sessionStorage.getItem('sp'))return;sessionStorage.setItem('sp','1')}catch(e){}
 var sains=/sains/.test(location.pathname),c1=sains?'#0b7285':'#5f3dc4',c2=sains?'#2f9e8f':'#3b5bdb';
-var ph=['diri','keluarga','pasangan'],n=0;try{n=+localStorage.getItem('spn')||0;localStorage.setItem('spn',(n+1)%3)}catch(e){}
+var ph=['diri','keluarga2','pasangan'],n=0;try{n=+localStorage.getItem('spn')||0;localStorage.setItem('spn',(n+1)%3)}catch(e){}
 var img=ph[n%3];
 var ex=sains?new Date(2026,11,3,8,0):new Date(2026,10,24,9,0),nm=sains?'Sains 1511':'Bahasa Inggeris 1119';
 var d=Math.ceil((ex-new Date())/864e5),t=d>1?d+' hari lagi':d===1?'Esok!':d===0?'Hari ini!':'';
